@@ -27,4 +27,11 @@ RSpec.describe Employee, type: :model do
       expect(model).to_not allow_value("9291908443").for(:imss_number)
     end
   end
+
+  describe "before_save" do
+    it "removes dashes from its IMSS number" do
+      employee = FactoryBot.create :employee, imss_number: "12-34-56-7890-0"
+      expect(employee.imss_number).to eq("12345678900")
+    end
+  end
 end
