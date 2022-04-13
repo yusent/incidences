@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Api::EmployeesController, type: :request do
-  content_type = "application/json; charset=utf-8"
+  content_type = "application/json"
 
   describe "GET /index" do
     it "renders a successful response" do
       get api_employees_url, as: :json
       expect(response).to be_successful
+      expect(response.content_type).to match(a_string_including(content_type))
     end
 
     it "renders a list of employees" do
