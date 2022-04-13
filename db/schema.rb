@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_13_043600) do
+ActiveRecord::Schema.define(version: 2022_04_13_172423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,5 +35,18 @@ ActiveRecord::Schema.define(version: 2022_04_13_043600) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "incidences", force: :cascade do |t|
+    t.bigint "employee_id"
+    t.integer "incidence_type"
+    t.integer "concept"
+    t.date "start_date"
+    t.date "end_date"
+    t.float "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_incidences_on_employee_id"
+  end
+
   add_foreign_key "contracts", "employees"
+  add_foreign_key "incidences", "employees"
 end
