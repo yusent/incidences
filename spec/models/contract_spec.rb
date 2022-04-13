@@ -13,6 +13,12 @@ RSpec.describe Contract, type: :model do
   end
 
   describe "validations" do
+    # Presence validations
+    it { should validate_presence_of(:employee) }
+    it { should validate_presence_of(:gross_salary) }
+    it { should validate_presence_of(:payroll_type) }
+
+    # Number validations
     it { should validate_numericality_of(:gross_salary).is_greater_than(0) }
   end
 

@@ -3,6 +3,7 @@ class Contract < ApplicationRecord
 
   enum payroll_type: %i[weekly biweekly monthly]
 
+  validates_presence_of :employee, :gross_salary, :payroll_type
   validates_numericality_of :gross_salary, greater_than: 0
 
   after_save :deactive_other_contracts_if_active
