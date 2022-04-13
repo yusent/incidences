@@ -2,6 +2,7 @@ class Employee < ApplicationRecord
   has_many :contracts
   has_one :active_contract, -> { where(active: true) }, class_name: "Contract"
   has_many :incidences
+  has_many :payroll_invoices
 
   validates_presence_of :first_name, :last_name, :rfc, :date_registered,
     :imss_number
