@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Contract, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:model) { FactoryBot.build :contract }
+
+  describe "associations" do
+    it { should belong_to(:employee) }
+  end
 end
