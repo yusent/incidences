@@ -8,6 +8,14 @@ RSpec.describe PayrollInvoice, type: :model do
   end
 
   describe "validations" do
+    # Presence validations
+    it { should validate_presence_of(:employee) }
+    it { should validate_presence_of(:start_date) }
+    it { should validate_presence_of(:end_date) }
+    it { should validate_presence_of(:concept) }
+    it { should validate_presence_of(:total) }
+
+    # Number validations
     it { should validate_numericality_of(:total).is_greater_than(0) }
   end
 end
