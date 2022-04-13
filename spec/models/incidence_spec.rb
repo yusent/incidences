@@ -16,6 +16,15 @@ RSpec.describe Incidence, type: :model do
   end
 
   describe "validations" do
+    # Presence validations
+    it { should validate_presence_of(:employee) }
+    it { should validate_presence_of(:incidence_type) }
+    it { should validate_presence_of(:concept) }
+    it { should validate_presence_of(:start_date) }
+    it { should validate_presence_of(:end_date) }
+    it { should validate_presence_of(:amount) }
+
+    # Number validations
     it { should validate_numericality_of(:amount).is_greater_than(0) }
   end
 end
