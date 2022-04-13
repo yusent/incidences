@@ -3,7 +3,7 @@ FactoryBot.define do
     first_name { "MyString" }
     last_name { "MyString" }
     date_registered { "2022-04-13" }
-    imss_number { "MyString" }
+    imss_number { 11.times.map { rand(10).to_s }.join }
 
     rfc do
       val = rand(3..4).times.map { ['&', *('A'..'Z')].sample }.join # e.g. XAXX

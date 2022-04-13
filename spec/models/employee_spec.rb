@@ -20,5 +20,11 @@ RSpec.describe Employee, type: :model do
       expect(model).to be_valid
       expect(model).to_not allow_value("Not an RFC").for(:rfc)
     end
+
+    it "should validate IMSS number format" do
+      expect(model).to be_valid
+      expect(model).to_not allow_value("Not an IMSS number").for(:imss_number)
+      expect(model).to_not allow_value("9291908443").for(:imss_number)
+    end
   end
 end

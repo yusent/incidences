@@ -3,4 +3,5 @@ class Employee < ApplicationRecord
     :imss_number
   validates_uniqueness_of :rfc, :imss_number
   validates :rfc, rfc: true
+  validates :imss_number, imss_number: true
 end
