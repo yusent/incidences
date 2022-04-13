@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_13_172423) do
+ActiveRecord::Schema.define(version: 2022_04_13_204617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,18 @@ ActiveRecord::Schema.define(version: 2022_04_13_172423) do
     t.index ["employee_id"], name: "index_incidences_on_employee_id"
   end
 
+  create_table "payroll_invoices", force: :cascade do |t|
+    t.bigint "employee_id"
+    t.date "start_date"
+    t.date "end_date"
+    t.text "concept"
+    t.float "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_payroll_invoices_on_employee_id"
+  end
+
   add_foreign_key "contracts", "employees"
   add_foreign_key "incidences", "employees"
+  add_foreign_key "payroll_invoices", "employees"
 end
