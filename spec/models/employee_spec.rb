@@ -14,5 +14,11 @@ RSpec.describe Employee, type: :model do
     # Uniqueness validations
     it { should validate_uniqueness_of(:rfc) }
     it { should validate_uniqueness_of(:imss_number) }
+
+    # Format validations
+    it "should validate RFC format" do
+      expect(model).to be_valid
+      expect(model).to_not allow_value("Not an RFC").for(:rfc)
+    end
   end
 end
