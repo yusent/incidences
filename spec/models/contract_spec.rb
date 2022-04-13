@@ -12,6 +12,10 @@ RSpec.describe Contract, type: :model do
       .with_values(%i[weekly biweekly monthly]) }
   end
 
+  describe "validations" do
+    it { should validate_numericality_of(:gross_salary).is_greater_than(0) }
+  end
+
   describe "after save" do
     it "should only be one active contract per employee" do
       model.update_attributes active: true
