@@ -13,6 +13,11 @@ RSpec.describe Incidence, type: :model do
 
     it { should define_enum_for(:concept)
       .with_values(%i[illness absence delay vacation extrahours extraday]) }
+
+    it "should validate start_date is not after end_date" do
+      model.start_date = model.end_date + 1.day
+      expect(model).to be_invalid
+    end
   end
 
   describe "validations" do

@@ -12,6 +12,11 @@ RSpec.describe PayrollInvoice, type: :model do
     it { should validate_presence_of(:start_date) }
     it { should validate_presence_of(:end_date) }
     it { should validate_presence_of(:concept) }
+
+    it "should validate start_date is not after end_date" do
+      model.start_date = model.end_date + 1.day
+      expect(model).to be_invalid
+    end
   end
 
   describe "total calculation" do
