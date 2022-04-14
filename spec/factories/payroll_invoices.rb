@@ -4,6 +4,6 @@ FactoryBot.define do
     start_date { 6.days.ago.to_date }
     end_date { Time.now.to_date }
     concept { Faker::Lorem.sentence }
-    total { Faker::Number.decimal(l_digits: 2, r_digits: 2) }
+    total { nil }
   end
 end

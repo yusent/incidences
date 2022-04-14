@@ -8,14 +8,50 @@ RSpec.describe PayrollInvoice, type: :model do
   end
 
   describe "validations" do
-    # Presence validations
     it { should validate_presence_of(:employee) }
     it { should validate_presence_of(:start_date) }
     it { should validate_presence_of(:end_date) }
     it { should validate_presence_of(:concept) }
-    it { should validate_presence_of(:total) }
+  end
 
-    # Number validations
-    it { should validate_numericality_of(:total).is_greater_than(0) }
+  describe "total calculation" do
+    let(:employee) { FactoryBot.create :employee }
+
+    let(:contract) do
+      FactoryBot.create :contract, employee: employee, active: true
+    end
+
+    before(:each) do
+      # Other employee's incidences
+      FactoryBot.create_list :incidence, 30,
+        employee: FactoryBot.create(:employee),
+        end_date: model.end_date
+
+      # Out of range incidences
+      FactoryBot.create_list :incidence, 30,
+        employee: employee,
+        end_date: model.end_date + 2.days
+    end
+
+    it "should add gross_salary, deductions and perceptions" do
+      deductions = FactoryBot.create_list :incidence, 10,
+        employee: employee,
+        incidence_type: :deductions,
+        end_date: model.end_date
+
+      perceptions = FactoryBot.create_list :incidence, 10,
+        employee: employee,
+        incidence_type: :perceptions,
+        end_date: model.end_date
+
+      expected_total = contract.gross_salary -
+        deductions.sum(&:amount) +
+        perceptions.sum(&:amount)
+
+      model.employee = employee
+      model.save
+
+      expect(model.total).to eq(expected_total.round(2))
+    end
   end
 end
