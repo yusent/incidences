@@ -13,6 +13,6 @@ class Api::PayrollInvoicesController < ApplicationController
   private
 
   def payroll_invoice_params
-    params.permit(:employee_id, :start_date, :end_date, :concept, :total)
+    params.permit(:employee_id, :start_date, :end_date, :concept)
   end
 end
