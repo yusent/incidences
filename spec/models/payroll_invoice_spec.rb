@@ -40,7 +40,7 @@ RSpec.describe PayrollInvoice, type: :model do
         end_date: model.end_date + 2.days
     end
 
-    it "should add gross_salary, deductions and perceptions", calc: true do
+    it "should add gross_salary, deductions and perceptions" do
       deductions = FactoryBot.create_list :incidence, 10,
         employee: employee,
         amount: 5,
