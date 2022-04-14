@@ -22,11 +22,13 @@ RSpec.describe PayrollInvoice, type: :model do
   describe "total calculation" do
     let(:employee) { FactoryBot.create :employee }
 
-    let(:contract) do
-      FactoryBot.create :contract, employee: employee, active: true
-    end
-
     before(:each) do
+      # Active contract
+      FactoryBot.create :contract,
+        employee: employee,
+        active: true,
+        gross_salary: 10_000
+
       # Other employee's incidences
       FactoryBot.create_list :incidence, 30,
         employee: FactoryBot.create(:employee),
@@ -38,25 +40,23 @@ RSpec.describe PayrollInvoice, type: :model do
         end_date: model.end_date + 2.days
     end
 
-    it "should add gross_salary, deductions and perceptions" do
+    it "should add gross_salary, deductions and perceptions", calc: true do
       deductions = FactoryBot.create_list :incidence, 10,
         employee: employee,
+        amount: 5,
         incidence_type: :deductions,
         end_date: model.end_date
 
       perceptions = FactoryBot.create_list :incidence, 10,
         employee: employee,
+        amount: 10,
         incidence_type: :perceptions,
         end_date: model.end_date
-
-      expected_total = contract.gross_salary -
-        deductions.sum(&:amount) +
-        perceptions.sum(&:amount)
 
       model.employee = employee
       model.save
 
-      expect(model.total).to eq(expected_total.round(2))
+      expect(model.total).to eq(10_050)
     end
   end
 end
