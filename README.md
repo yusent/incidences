@@ -10,6 +10,14 @@ docker-compose up --build
 
 Now the app should be running at `http://localhost:3000`
 
+## Seed data
+
+You can create random data to test by running:
+
+```bash
+docker-compose run web rails db:seed
+```
+
 ## Test
 
 ```bash
